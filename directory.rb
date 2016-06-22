@@ -7,8 +7,8 @@ end
 
 def print_students(students)
   students.each.with_index(1) do |student, index|
-    full_name = student[:name].to_s
-    if full_name[0] == "A"
+    len = student[:name].to_s.count("A-z")
+    if len < 12
       puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
