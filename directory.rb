@@ -6,14 +6,13 @@ def print_header
 end
 
 def print_students(students)
-  #students.each do |student|
-      #puts " #{student[:name]} (#{student[:cohort]} cohort)"
-  #end
-  records = students.length
-  index = 0
-  while index < records
-    puts " #{students[index][:name]} (#{students[index][:cohort]} cohort)"
-    index += 1
+  students.each do |student|
+      puts " #{student[:name]}
+      cohort: #{student[:cohort]}
+      hobby: #{student[:hobby]}
+      country_of_birth: #{student[:country_of_birth]}
+      height: #{student[:height]}
+      weight: #{student[:weight]}"
   end
 end
 
@@ -24,15 +23,15 @@ end
 def input_students
   puts "Please enter the names, and details of new students"
   puts "To finish, just press ENTER twice"
-  students = [] #new empty array of students
+  students = []
   name = gets.chomp
 
-  while !name.empty? do #while we got an input do the following:
-    students << {name: name, cohort: :november, hobby: :hiking, country of birth: :UK, height: :180, weight: :80}
-    puts "Now we have #{students.count} students" #informs how many students we currently have
+  while !name.empty? do
+    students << {name: name, cohort: :november, hobby: :hiking, country_of_birth: :UK, height: 180, weight: 80}
+    puts "Now we have #{students.count} students"
     name = gets.chomp
   end
-  students #returns array of students
+  students 
 end
 
 students = input_students
