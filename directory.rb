@@ -22,13 +22,13 @@ def print_footer(students)
 end
 
 def input_students
-  puts "Please enter the names of new students"
+  puts "Please enter the names, and details of new students"
   puts "To finish, just press ENTER twice"
   students = [] #new empty array of students
   name = gets.chomp
 
   while !name.empty? do #while we got an input do the following:
-    students << {name: name, cohort: :november} #adds a new hash with an input name
+    students << {name: name, cohort: :november, hobby: :hiking, country of birth: :UK, height: :180, weight: :80}
     puts "Now we have #{students.count} students" #informs how many students we currently have
     name = gets.chomp
   end
