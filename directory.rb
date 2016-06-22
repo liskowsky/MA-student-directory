@@ -6,13 +6,15 @@ def print_header
 end
 
 def print_students(students)
+  line_length = 40
   students.each do |student|
-      puts " #{student[:name]}
-      cohort: #{student[:cohort]}
-      hobby: #{student[:hobby]}
-      country_of_birth: #{student[:country_of_birth]}
-      height: #{student[:height]}
-      weight: #{student[:weight]}"
+    puts "#{student[:name].to_s.center(line_length)}"
+    student.each do |key, value|
+      if key != :name
+        puts key.to_s.rjust(line_length/2) + ":" + value.to_s.ljust(line_length/2)
+      end
+    end
+    puts
   end
 end
 
@@ -31,7 +33,7 @@ def input_students
     puts "Now we have #{students.count} students"
     name = gets.chomp
   end
-  students 
+  students
 end
 
 students = input_students
