@@ -36,11 +36,15 @@ def print_header
 end
 
 def print_students(students)
-  students.each do |student|
-    student.each do |key, value|
-        puts key.to_s.rjust($line_length/2) + ":" + value.to_s.ljust($line_length/2)
+  if !students.empty?
+    students.each do |student|
+      student.each do |key, value|
+          puts key.to_s.rjust($line_length/2) + ":" + value.to_s.ljust($line_length/2)
+      end
+      puts
     end
-    puts
+  else
+    puts "NOTHIG TO PRINT"
   end
 end
 
