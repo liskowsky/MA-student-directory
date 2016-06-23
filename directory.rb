@@ -49,11 +49,12 @@ def print_by_cohort(students)
     month = gets.chomp.capitalize
       students.map do |student|
         if student[:cohort] == month
-          cohort_month << student[:name]
+          cohort_month << student
       end
     end
-    puts "Cohort #{month}"
-    puts "Students are: #{cohort_month}"
+    #puts "Cohort #{month}"
+    #puts "Students are: #{cohort_month}"
+    print_students(cohort_month)
   end
 
 def print_footer(names)
