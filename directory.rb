@@ -6,7 +6,7 @@ $line_length = 40
 
 def input_students
   students = []
-  name = 'Alan'
+  name = 'NONAME'
   default = 'July'
   until name.empty?
     puts 'Please enter the name of the student'
@@ -19,7 +19,7 @@ def input_students
     puts 'Please enter your country of birth'
     country = gets.chomp.capitalize
     puts 'Please enter your height'
-    height = gets.chomp
+    height = gets.delete("\n") #insted of chomp
     if cohort.empty? or !$months.include?(cohort)
       cohort = default
     end
@@ -29,6 +29,7 @@ def input_students
   end
     students
 end
+
 def print_header
   puts 'The students of my cohort at Makers Academy'
   puts '-------------------------------------------'
@@ -52,8 +53,6 @@ def print_by_cohort(students)
           cohort_month << student
       end
     end
-    #puts "Cohort #{month}"
-    #puts "Students are: #{cohort_month}"
     print_students(cohort_month)
   end
 
