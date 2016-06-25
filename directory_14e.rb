@@ -3,6 +3,7 @@ $months = ['January', 'February', 'March',
           'August', 'September', 'October',
           'November', 'December']
 $line_length = 40
+$selecion = ""
 @students = []
 
 ##MENU
@@ -10,7 +11,7 @@ $line_length = 40
 def interactive_manu
   loop do
     print_menu
-    process(STDIN.gets.chomp)
+    process
   end
 end
 
@@ -19,13 +20,14 @@ def print_menu
   puts "1. Add students"
   puts "2. Show all students"
   puts "3. Show students of specific cohort"
-  puts "4. Save the list to students.csv"
-  puts "5. Load the list from students.csv"
+  puts "4. Save the list of students"
+  puts "5. Load the list of students"
   puts "9. Exit"
 end
 
-def process(selection)
-  case selection
+def process
+  $selection = STDIN.gets.chomp
+  case $selection
   when "1" then students = input_students
   when "2" then print_all
   when "3" then print_by_cohort(@students)
@@ -132,7 +134,8 @@ end
 ##SAVING STUDENTS
 
 def save_students
-  file = File.open("students.csv","w")
+  filename = filename_prompt($selection)
+  file = File.open(filename,"w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobbies], student[:country], student[:height]]
     csv_line = student_data.join(",")
@@ -144,8 +147,8 @@ end
 
 ##LOADING STUDENTS
 
-def load_students(filename = "students.csv")
-
+def load_students
+filename = filename_prompt($selection)
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort, hobbies, country, height = line.chomp.split(",")
@@ -167,6 +170,28 @@ def try_load_students
   end
 end
 
+##PROMPTING FOR FILENAME
+
+def filename_prompt(action)
+  puts "Please enter filename: "
+  filename = gets.chomp.downcase
+  if action == "4" #SAVING
+    if filename[-4..-1] == ".csv"
+      return filename
+    else
+      puts "Wrong file fomat. Saved in 'students.csv'"
+      return filename = "students.csv"
+    end
+  elsif action == "5" #LOADING
+    if File.exist?(filename)
+      return filename
+    else
+      puts "Sorry, #{filename} doesn't exist."
+      puts "Loading from 'students.csv'"
+      return filename = "students.csv"
+    end
+  end
+end
 ##EXECUTE
 
 try_load_students
