@@ -42,15 +42,12 @@ end
 ##ADDING STUDENTS
 
 def input_students
-
   loop do
+    cohort = ""
     name    = get_detail("student name")
-
-    loop do
+    until $months.include?(cohort)
       cohort  = get_detail("cohort (using full month)","July")
-      break if $months.include?(cohort)
     end
-
     hobbies = get_detail("hobbies")
     country = get_detail("country of birth")
     height  = get_detail("height")

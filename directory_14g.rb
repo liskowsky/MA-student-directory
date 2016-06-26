@@ -1,3 +1,5 @@
+require "csv"
+
 $months = ['January', 'February', 'March',
           'April', 'May', 'June', 'July',
           'August', 'September', 'October',
@@ -51,7 +53,7 @@ def input_students
     hobbies = get_detail("hobbies")
     country = get_detail("country of birth")
     height  = get_detail("height")
-
+    
     add_student(@students, name, cohort, hobbies, country, height)
     puts "Now we have #{@students.count} #{@students.count == 1? "student" : "students"}"
 
@@ -132,25 +134,24 @@ end
 
 def save_students
   filename = filename_prompt($selection)
-  File.open(filename, "w"){ |file|
+  CSV.open(filename) do |line|
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobbies], student[:country], student[:height]]
     csv_line = student_data.join(",")
-    file.puts csv_line
+    CSV.parse(csv_line)
   end
-  puts "Saving successful!" }
+  puts "Saving successful!"
+end
 end
 
 ##LOADING STUDENTS
 
 def load_students
 filename = filename_prompt($selection)
-File.open(filename, "r"){ |file|
-  file.readlines.each do |line|
-    name, cohort, hobbies, country, height = line.chomp.split(",")
-    add_student(@students, name, cohort, hobbies, country, height)
+  CSV.foreach(filename) do |line|
+    add_student(@students, line[0], line[1], line[2], line[3], line[4])
   end
-  puts "Loading successful!" }
+  puts "Loading successful!"
 end
 
 def try_load_students
